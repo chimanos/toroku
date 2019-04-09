@@ -1,6 +1,7 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ServiceService} from './service/service.service';
+import {HttpClientModule} from '@angular/common/http';
 
 const SERVICES = [
     ServiceService
@@ -9,7 +10,8 @@ const SERVICES = [
 @NgModule({
     declarations: [],
     imports: [
-        CommonModule
+        CommonModule,
+        HttpClientModule
     ],
     providers: [
         ...SERVICES

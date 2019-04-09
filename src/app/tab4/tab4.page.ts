@@ -48,12 +48,21 @@ import {Component} from '@angular/core';
                     Inconnue
                 </ion-card-content>
             </ion-card>
+            <div class="credit">
+                <p class="text">Not develop with love.</p>
+                <ion-icon name="heart-dislike"></ion-icon>
+            </div>
         </ion-content>
     `,
     styles: [`
         .welcome-card ion-img {
             max-height: 35vh;
             overflow: hidden;
+        }
+
+        .credit {
+            margin-top: 25px;
+            text-align: center;
         }
     `]
 })
