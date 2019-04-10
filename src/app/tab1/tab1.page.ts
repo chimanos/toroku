@@ -20,7 +20,7 @@ import {Observable} from 'rxjs';
                         <ion-card-title>{{ service.title }}</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                        <img src="{{ getServiceLogoUrl(service) }}"/>
+                        <img class="service-logo" src="{{ getServiceLogoUrl(service) }}"/>
                     </ion-card-content>
                 </ion-card>
             </div>
@@ -30,6 +30,11 @@ import {Observable} from 'rxjs';
         .welcome-card ion-img {
             max-height: 35vh;
             overflow: hidden;
+        }
+        
+        .service-logo {
+            height: 70px;
+            width: 70px;
         }
     `]
 })

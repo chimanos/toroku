@@ -24,11 +24,12 @@ export class ServiceService {
         For a better way to get the logo of the service, need to check if the element contain image url or not
      */
     getServiceLogoUrl(service: ServiceData): string {
+        let logoUrl = null;
         service.elements.forEach(function (value: ServiceElement) {
             if (value.type === 'image') {
-                return value.value[0];
+                logoUrl = value.value[0];
             }
         });
-        return null;
+        return logoUrl;
     }
 }
