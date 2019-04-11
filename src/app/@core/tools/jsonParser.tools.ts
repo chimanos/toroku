@@ -14,7 +14,7 @@ export class JsonParser {
             const element = service.elements[i];
             switch (element.type.toLocaleLowerCase()) {
                 case 'image':
-                    form = `<ion-img src="${element.value[0]}"></ion-img>` + form;
+                    form = `<ion-img style="width: 80px; height: 80px; margin-top: 20px; margin-left: auto; margin-right: auto;" src="${element.value[0]}"></ion-img>` + form;
                     break;
                 case 'edit':
                     form += `<ion-item>

@@ -1,10 +1,10 @@
-import {Component, OnInit, SecurityContext} from '@angular/core';
+import {Component} from '@angular/core';
 import {ServiceService} from '../@core/service/service.service';
 import {JsonParser} from '../@core/tools/jsonParser.tools';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {Storage} from '@ionic/storage';
 import {flatMap} from 'rxjs/operators';
-import {BrowserModule, DomSanitizer, SafeHtml} from '@angular/platform-browser'
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-tab2',
@@ -23,17 +23,28 @@ import {BrowserModule, DomSanitizer, SafeHtml} from '@angular/platform-browser'
     styleUrls: ['tab2.page.scss']
 })
 
-export class Tab2Page implements OnInit {
+export class Tab2Page {
     form$: Observable<string>;
-    observer: any;
-    form: SafeHtml
+    observer: Subscription;
+    form: SafeHtml;
     CURRENT_SERVICE_KEY = 'currentService';
 
-    constructor(private serviceService: ServiceService, private jsonParser: JsonParser, private storage: Storage, private sanitizer: DomSanitizer) {
-      this.form = undefined
+    constructor(private serviceService: ServiceService, private jsonParser: JsonParser,
+                private storage: Storage, private sanitizer: DomSanitizer) {
+        this.form = undefined;
     }
 
-    ngOnInit(): void {
+    getCurrentService(): Observable<string> {
+        return new Observable<string>(emitter => {
+            this.storage.get(this.CURRENT_SERVICE_KEY).then((serviceName) => {
+                emitter.next(serviceName);
+                emitter.complete();
+            });
+        });
+    }
+
+    ionViewWillEnter() {
+        console.log('Page enter');
         this.form$ = this.serviceService.getServices().pipe(
             flatMap(services => {
                 return this.getCurrentService().pipe(
@@ -47,42 +58,22 @@ export class Tab2Page implements OnInit {
         );
 
         this.observer = this.form$.subscribe(
-        (result) => {
-          this.form = this.sanitizer.bypassSecurityTrustHtml(result);
-        },
-        (error) => {
-          console.error("Error", error);
-        },
-        () => {
-          console.log("Subscription complete");
-        }
-      )
+            (result) => {
+                this.form = this.sanitizer.bypassSecurityTrustHtml(result);
+            },
+            (error) => {
+                console.error('Error', error);
+            },
+            () => {
+                console.log('Subscription complete');
+            }
+        );
     }
 
     ionViewDidLeave() {
-      this.observer.unsubscribe(
-        (result) => {
-          console.log("unsubscribe done");
-        },
-        (error) => {
-          console.error("Error", error);
-        },
-        () => {
-          console.log("unsubscription complete");
+        console.log('Page leave');
+        if (this.observer != null) {
+            this.observer.unsubscribe();
         }
-      )
-    }
-
-    getCurrentService(): Observable<string> {
-        return new Observable<string>(emitter => {
-            this.storage.get(this.CURRENT_SERVICE_KEY).then((serviceName) => {
-                emitter.next(serviceName);
-                emitter.complete();
-            });
-        });
-    }
-
-    logForm(): void {
-      console.log("test")
     }
 }
