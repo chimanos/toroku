@@ -3,6 +3,7 @@ import {ServiceService} from '../@core/service/service.service';
 import {Observable} from 'rxjs';
 import {Storage} from '@ionic/storage';
 import {AlertController} from '@ionic/angular';
+import {ExtendedDeviceInformation} from '@ionic-native/extended-device-information/ngx';
 
 @Component({
     selector: 'app-tab1',
@@ -24,11 +25,11 @@ import {AlertController} from '@ionic/angular';
                             <img class="service-logo" src="{{ getServiceLogoUrl(service) }}"/>
                             <ion-text class="service-title" color="primary">
                                 <h1><b>{{ service.title }}</b></h1>
-                                <p *ngIf="isCurrentService(service)">This is the current selected service.</p>
+                                <p *ngIf="isCurrentService(service)">Current service.</p>
                             </ion-text>
                         </div>
                         <div class="service-button-container">
-                            <ion-button class="service-button" color="primary" (click)="select(service)">Selectionner</ion-button>
+                            <ion-button class="service-button" color="primary" (click)="select(service)">Select</ion-button>
                         </div>
                     </div>
                 </ion-card>
@@ -37,7 +38,7 @@ import {AlertController} from '@ionic/angular';
     `,
     styles: [`
         .service-content-container {
-            height: 150px;
+            height: 100px;
             padding: 10px;
         }
 
@@ -46,15 +47,15 @@ import {AlertController} from '@ionic/angular';
         }
 
         .service-infos-container {
-            width: 300px;
-            height: 130px;
+            width: 200px;
+            height: 80px;
             position: relative;
             float: left;
         }
 
         .service-button-container {
-            width: 200px;
-            height: 130px;
+            width: 80px;
+            height: 80px;
             position: relative;
             float: right;
         }
@@ -69,19 +70,21 @@ import {AlertController} from '@ionic/angular';
         }
 
         .service-logo {
-            width: 130px;
-            height: 130px;
+            width: 80px;
+            height: 80px;
             float: left;
         }
 
         .service-button {
             float: right;
+            width: 80px;
+            font-size: 10px;
             position: absolute;
             top: 50%;
             -ms-transform: translateY(-50%);
             transform: translateY(-50%);
         }
-        
+
         .header-title {
             float: left;
             position: absolute;
@@ -89,7 +92,7 @@ import {AlertController} from '@ionic/angular';
             -ms-transform: translateY(-50%);
             transform: translateY(-50%);
         }
-        
+
         .header-settings {
             width: 30px;
             height: 30px;
@@ -107,7 +110,8 @@ export class Tab1Page implements OnInit {
 
     constructor(private serviceService: ServiceService,
                 private storage: Storage,
-                private alertController: AlertController) {
+                private alertController: AlertController,
+                private extendedDeviceInformation: ExtendedDeviceInformation) {
     }
 
     ngOnInit(): void {
@@ -145,7 +149,7 @@ export class Tab1Page implements OnInit {
         const alert = await this.alertController.create({
             header: 'Infos',
             subHeader: 'RAM & Processor usages:',
-            message: 'This is an alert message.',
+            message: 'Ram: ' + this.extendedDeviceInformation.memory + ' & Processor: ' + this.extendedDeviceInformation.cpumhz,
             buttons: ['OK']
         });
 
