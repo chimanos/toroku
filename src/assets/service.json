@@ -22,7 +22,7 @@
 				{
 					"section": "info",
 					"type": "radioGroup",
-					"value": ["Homme","femme"],
+					"value": ["Homme","Femme"],
 					"mandatory": "false"
 				},
 				{
