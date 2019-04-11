@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ServiceService} from '../@core/service/service.service';
 import {Storage} from '@ionic/storage';
 import {Observable} from 'rxjs';
+import {ResultService} from '../@core/service/result.service';
 
 @Component({
     selector: 'app-tab3',
@@ -45,7 +46,7 @@ export class Tab3Page implements OnInit {
 
     CURRENT_SERVICE_KEY = 'currentService';
 
-    constructor(private serviceService: ServiceService, private storage: Storage) {
+    constructor(private serviceService: ServiceService, private storage: Storage, private resultService: ResultService) {
 
     }
 
