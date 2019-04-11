@@ -2,15 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {ServiceService} from '../@core/service/service.service';
 import {Observable} from 'rxjs';
 import {Storage} from '@ionic/storage';
+import {AlertController} from '@ionic/angular';
 
 @Component({
     selector: 'app-tab1',
     template: `
         <ion-header>
             <ion-toolbar>
-                <ion-title>
+                <ion-title class="header-title">
                     Services
                 </ion-title>
+                <ion-icon class="header-settings" name="settings" (click)="showDialog()"></ion-icon>
             </ion-toolbar>
         </ion-header>
 
@@ -79,6 +81,21 @@ import {Storage} from '@ionic/storage';
             -ms-transform: translateY(-50%);
             transform: translateY(-50%);
         }
+        
+        .header-title {
+            float: left;
+            position: absolute;
+            top: 50%;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+        
+        .header-settings {
+            width: 30px;
+            height: 30px;
+            float: right;
+            margin-right: 20px;
+        }
     `]
 })
 export class Tab1Page implements OnInit {
@@ -88,8 +105,9 @@ export class Tab1Page implements OnInit {
 
     CURRENT_SERVICE_KEY = 'currentService';
 
-    constructor(private serviceService: ServiceService, private storage: Storage) {
-
+    constructor(private serviceService: ServiceService,
+                private storage: Storage,
+                private alertController: AlertController) {
     }
 
     ngOnInit(): void {
@@ -121,5 +139,16 @@ export class Tab1Page implements OnInit {
         } else {
             return false;
         }
+    }
+
+    async showDialog() {
+        const alert = await this.alertController.create({
+            header: 'Infos',
+            subHeader: 'RAM & Processor usages:',
+            message: 'This is an alert message.',
+            buttons: ['OK']
+        });
+
+        await alert.present();
     }
 }
