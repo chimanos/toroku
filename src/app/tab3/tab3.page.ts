@@ -28,7 +28,7 @@ import {ResultService} from '../@core/service/result.service';
                         </ion-card-header>
 
                         <ion-card-content>
-                            Content
+                            
                         </ion-card-content>
                     </ion-card>
                 </div>
@@ -46,8 +46,9 @@ export class Tab3Page implements OnInit {
 
     CURRENT_SERVICE_KEY = 'currentService';
 
-    constructor(private serviceService: ServiceService, private storage: Storage, private resultService: ResultService) {
-
+    constructor(private serviceService: ServiceService,
+                private storage: Storage,
+                private resultService: ResultService) {
     }
 
     ngOnInit(): void {

@@ -8,12 +8,14 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {CoreModule} from './@core/core.module';
 import {IonicStorageModule} from '@ionic/storage';
+import {ExtendedDeviceInformation} from '@ionic-native/extended-device-information/ngx';
 
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, CoreModule.forRoot(), IonicStorageModule.forRoot()],
     providers: [
+        ExtendedDeviceInformation,
         StatusBar,
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
