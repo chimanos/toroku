@@ -7,11 +7,12 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {CoreModule} from './@core/core.module';
+import {IonicStorageModule} from '@ionic/storage';
 
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, CoreModule.forRoot()],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, CoreModule.forRoot(), IonicStorageModule.forRoot()],
     providers: [
         StatusBar,
         SplashScreen,
