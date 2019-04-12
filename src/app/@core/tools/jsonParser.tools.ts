@@ -19,9 +19,9 @@ export class JsonParser {
               form += `<ion-item>
                   <ion-label>${element.value[0]}</ion-label>`
               if (element.mandatory) {
-                form += `<ion-input type="text" name="${element.value[0].toLocaleLowerCase()}" placeholder="${element.value[0]}" value="${element.value[0]}" required></ion-input>`
+                form += `<ion-input type="text" name="${element.value[0].toLocaleLowerCase()}" placeholder="${element.value[0]}" required></ion-input>`
               } else {
-                form += `<ion-input type="text" name="${element.value[0].toLocaleLowerCase()}" placeholder="${element.value[0]}" value="${element.value[0]}"></ion-input>`
+                form += `<ion-input type="text" name="${element.value[0].toLocaleLowerCase()}" placeholder="${element.value[0]}"></ion-input>`
               }
                 form += `</ion-item>`
             break;
