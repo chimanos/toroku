@@ -8,18 +8,7 @@ import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-tab2',
-    template: `
-        <ion-header>
-            <ion-toolbar>
-                <ion-title>
-                    Tab Two
-                </ion-title>
-            </ion-toolbar>
-        </ion-header>
-
-        <ion-content [innerHTML]="form">
-        </ion-content>
-    `,
+    templateUrl: 'tab2.page.html',
     styleUrls: ['tab2.page.scss']
 })
 
