@@ -19,9 +19,9 @@ export class JsonParser {
               form += `<ion-item>
                   <ion-label>${element.value[0]}</ion-label>`
               if (element.mandatory) {
-                form += `<ion-input type="text" name="${element.value[0]}" placeholder="${element.value[0]}" value="${element.value[0]}" required></ion-input>`
+                form += `<ion-input type="text" name="${element.value[0].toLocaleLowerCase()}" placeholder="${element.value[0]}" value="${element.value[0]}" required></ion-input>`
               } else {
-                form += `<ion-input type="text" name="${element.value[0]}" placeholder="${element.value[0]}" value="${element.value[0]}"></ion-input>`
+                form += `<ion-input type="text" name="${element.value[0].toLocaleLowerCase()}" placeholder="${element.value[0]}" value="${element.value[0]}"></ion-input>`
               }
                 form += `</ion-item>`
             break;
@@ -35,19 +35,19 @@ export class JsonParser {
             case "switch":
               form += "<ion-item>"
               if (element.value[0]) {
-                form += `<ion-checkbox slot="start" value="biff" checked></ion-checkbox>`
+                form += `<ion-checkbox name="${element.section.toLocaleLowerCase()}" value="checked" checked></ion-checkbox>`
               } else {
-                form += `<ion-checkbox slot="start" value="biff"></ion-checkbox>`
+                form += `<ion-checkbox name="${element.section.toLocaleLowerCase()}" value="checked"></ion-checkbox>`
               }
               form += "</ion-item>"
             break;
             case "radiogroup":
               form += `<ion-list>
-                      <ion-radio-group>`
+                      <ion-radio-group name="${element.section.toLocaleLowerCase()}">`
               element.value.forEach(radio => {
                 form += `<ion-item>
                           <ion-label>${radio}</ion-label>
-                          <ion-radio value="${radio}"></ion-radio>
+                          <ion-radio slot="start" name="${element.section.toLocaleLowerCase()}" value="${radio}"></ion-radio>
                         </ion-item>`
               })
 
@@ -56,9 +56,9 @@ export class JsonParser {
             break;
             case "button":
             if (element.mandatory) {
-              form += `<ion-button color="primary">${element.value[0]}</ion-button>`
+              form += `<ion-checkbox name="${element.section.toLocaleLowerCase()}" color="primary" value="${element.value[0]}"></ion-checkbox>${element.value[0]}`
             } else {
-              form += `<ion-button color="secondary">${element.value[0]}</ion-button>`
+              form += `<ion-checkbox name="${element.section.toLocaleLowerCase()}" color="secondary" value="${element.value[0]}"></ion-checkbox>${element.value[0]}`
             }
             break;
             default:
@@ -66,9 +66,8 @@ export class JsonParser {
               break;
           }
         }
-        form += '<ion-button onclick="loadForm(event)">Subscribe</ion-button>'
+        form += '<ion-button type="button" onclick="loadForm(event)">Subscribe</ion-button>'
 
-        //let test = function(e) { e.preventDefault(); console.log(\'here\')}; test(event)
        form += '</form>'
       return new Observable<string>(emitter => {emitter.next(form); emitter.complete(); });
     }

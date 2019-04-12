@@ -24,8 +24,31 @@
 
 <script src="assets/jquery.min.js"></script>
 <script>
-  var loadForm: function(e) {
+  var loadForm = function(e) {
     e.preventDefault()
+
+    var fields = $('#subscribeForm').serializeArray();
+    var radios = $('#subscribeForm ion-radio')
+    let radiosObject = []
+
+    for (let i = 0; i < radios.length; i++) {
+      let radio = radios[i]
+      radiosObject.push({
+        name: radio.name,
+        checked: radio['attributes']['aria-checked'].value,
+        value: radio['attributes']['value'].value
+      })
+
+
+    }
+
+    fields.push(radiosObject)
+    result = {
+      serviceName: "test",
+      fields
+    }
+
+    console.log('fields:', result)
   }
 </script>
 
